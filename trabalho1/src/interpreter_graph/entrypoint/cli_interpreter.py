@@ -20,8 +20,8 @@ def _read_file_matrix(file_name):
         total_vertices = int(line)
         matrix = MatrixAdjacent(total_vertices)
         for aresta_count in range(0, total_vertices):
+            # TODO: when read numbers greater than 9 the script break in more positions on array
             line = [parameters.rstrip("") for parameters in file.readline()]
-            print(line)
             vertice1 = int(line[0]) - 1
             vertice2 = int(line[2]) - 1
             matrix.add_edge(vertice1, vertice2)

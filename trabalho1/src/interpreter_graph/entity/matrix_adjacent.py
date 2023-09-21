@@ -14,11 +14,11 @@ class MatrixAdjacent:
         return super().__new__(cls)
 
     def __init__(self, total_vertexes: int):
-        if total_vertexes < 1:
+        if total_vertexes <= 1:
             raise RuntimeError("Vertices should be more than 1")
 
         self._total_vertexes = total_vertexes
-        self._matrix_adjacent = [[0] * total_vertexes] * total_vertexes
+        self._matrix_adjacent = [[0 for _ in range(total_vertexes)] for _ in range(total_vertexes)]
 
     def _validate_bounds_vertex(self, vertex: int) -> bool:
         return 0 <= vertex < self._total_vertexes
@@ -33,7 +33,6 @@ class MatrixAdjacent:
 
     def add_edge(self, vertex1: int, vertex2: int) -> MatrixAdjacent:
         self._validate_vertexes_to_edge(vertex1, vertex2)
-
         self._matrix_adjacent[vertex1][vertex2] = 1
         self._matrix_adjacent[vertex2][vertex1] = 1
         return self
