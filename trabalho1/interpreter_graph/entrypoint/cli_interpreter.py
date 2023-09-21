@@ -1,6 +1,6 @@
 import sys
 
-from src.interpreter_graph.entity.matrix_adjacent import MatrixAdjacent
+from interpreter_graph.entity.matrix_adjacent import MatrixAdjacent
 
 
 def read_matrix_from_cli():
