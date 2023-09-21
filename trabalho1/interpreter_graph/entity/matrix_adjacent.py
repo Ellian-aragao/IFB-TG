@@ -10,7 +10,7 @@ class MatrixAdjacent:
     _total_vertexes: int
     _matrix_adjacent: List[List[int]]
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls, *args, **kwargs) -> MatrixAdjacent:
         return super().__new__(cls)
 
     def __init__(self, total_vertexes: int):

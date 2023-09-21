@@ -9,12 +9,12 @@ def read_matrix_from_cli():
     return _read_file_matrix(file_name)
 
 
-def _validate_args():
+def _validate_args() -> None:
     if len(sys.argv) != 2:
         raise RuntimeError("Should has 1 argument, the input file graph")
 
 
-def _read_file_matrix(file_name):
+def _read_file_matrix(file_name) -> MatrixAdjacent:
     with open(file_name, "r") as file:
         line = file.readline()
         total_vertices = int(line)
@@ -28,5 +28,5 @@ def _read_file_matrix(file_name):
     return matrix
 
 
-def _get_file_name_from_args():
+def _get_file_name_from_args() -> str:
     return sys.argv[1]
