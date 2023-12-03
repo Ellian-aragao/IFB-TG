@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 abstract class GraphAbstractTest {
 
@@ -33,12 +34,12 @@ abstract class GraphAbstractTest {
     @Test
     fun `should validate process vertex degree values`() {
         val graphAbstract = provide(3)
-        graphAbstract
             .addEdge(0, 1)
             .addEdge(0, 2)
             .addEdge(1, 2)
-        assertContentEquals(arrayOf(0, 0, 0), graphAbstract.getVertexDegress())
+
+        assertFalse(graphAbstract.vertexDegressIsComputed())
         graphAbstract.processAllVertexesDegrees()
-        assertContentEquals(arrayOf(2, 2, 2), graphAbstract.getVertexDegress())
+        assertContentEquals(listOf(2, 2, 2), graphAbstract.processVertexDegreesAndGet())
     }
 }

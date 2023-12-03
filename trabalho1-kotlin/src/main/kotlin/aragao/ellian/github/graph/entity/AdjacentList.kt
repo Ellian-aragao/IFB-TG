@@ -10,10 +10,9 @@ class AdjacentList(totalVertex: Int) : GraphAbstract(totalVertex) {
         adjacentList[vertex2].add(vertex1)
     }
 
-    override fun processVertexDegree(): Array<Int> {
+    override fun processVertexDegree(): List<Int> {
         return adjacentList
             .map { it.size }
             .toList()
-            .toTypedArray()
     }
 }

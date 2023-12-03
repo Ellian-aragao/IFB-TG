@@ -4,7 +4,6 @@ import aragao.ellian.github.graph.entity.AdjacentList
 import aragao.ellian.github.graph.entity.GraphAbstract
 import aragao.ellian.github.graph.entity.AdjacentMatrix
 import java.io.File
-import java.io.FileOutputStream
 import java.util.function.Function
 
 class CliInterpreter(args: Array<String>) {
@@ -31,7 +30,7 @@ class CliInterpreter(args: Array<String>) {
         return fileOutput!!
     }
 
-    fun readAllFileMatrixData(): List<String> = getInstanceOfFileInput().readLines()
+    fun readAllFileData(): List<String> = getInstanceOfFileInput().readLines()
 
     private fun readStreamAndGenerateMatrix(function: Function<Int, GraphAbstract>): GraphAbstract {
         getInstanceOfFileInput().bufferedReader().use {
@@ -59,10 +58,9 @@ class CliInterpreter(args: Array<String>) {
     }
 
     fun writeFileReportFromGraph(graph: GraphAbstract) {
-        graph.processAllVertexesDegrees()
         val totalVertex = graph.getTotalVertex()
         val edgeLenght = graph.getEdgeLenght()
-        val vertexDegress = graph.getVertexDegress()
+        val vertexDegress = graph.processVertexDegreesAndGet()
         getInstanceOfFileOutput().bufferedWriter().use {
             it.write("# n = $totalVertex")
             it.newLine()
