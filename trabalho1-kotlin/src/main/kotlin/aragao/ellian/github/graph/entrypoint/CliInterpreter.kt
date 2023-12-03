@@ -1,8 +1,9 @@
 package aragao.ellian.github.graph.entrypoint
 
 import aragao.ellian.github.graph.entity.AdjacentList
-import aragao.ellian.github.graph.entity.GraphAbstract
 import aragao.ellian.github.graph.entity.AdjacentMatrix
+import aragao.ellian.github.graph.entity.GraphAbstract
+import aragao.ellian.github.graph.entity.tree.Tree
 import java.io.File
 import java.util.function.Function
 
@@ -23,6 +24,7 @@ class CliInterpreter(args: Array<String>) {
 
         return fileInput!!
     }
+
     private fun getInstanceOfFileOutput(): File {
         if (fileOutput == null)
             fileOutput = File("$fileInputPath-out.txt")
@@ -32,7 +34,7 @@ class CliInterpreter(args: Array<String>) {
 
     fun readAllFileData(): List<String> = getInstanceOfFileInput().readLines()
 
-    private fun readStreamAndGenerateMatrix(function: Function<Int, GraphAbstract>): GraphAbstract {
+    private fun <T : GraphAbstract> readStreamAndGenerateMatrix(function: Function<Int, T>): T {
         getInstanceOfFileInput().bufferedReader().use {
             val firstLine = it.readLine()
             val numberOfVertexes = Integer.parseInt(firstLine)
@@ -49,11 +51,11 @@ class CliInterpreter(args: Array<String>) {
         }
     }
 
-    fun readStreamAndGenerateAdjacentMatrix(): GraphAbstract {
+    fun readStreamAndGenerateAdjacentMatrix(): AdjacentMatrix {
         return readStreamAndGenerateMatrix { totalVertexes: Int -> AdjacentMatrix(totalVertexes) }
     }
 
-    fun readStreamAndGenerateAdjacentList(): GraphAbstract {
+    fun readStreamAndGenerateAdjacentList(): AdjacentList {
         return readStreamAndGenerateMatrix { totalVertexes: Int -> AdjacentList(totalVertexes) }
     }
 
@@ -71,5 +73,9 @@ class CliInterpreter(args: Array<String>) {
                 it.newLine()
             }
         }
+    }
+
+    fun readStreamAndGenerateTreeSimpleNode(): Tree {
+        return readStreamAndGenerateMatrix { totalVertexes: Int -> Tree(totalVertexes) }
     }
 }

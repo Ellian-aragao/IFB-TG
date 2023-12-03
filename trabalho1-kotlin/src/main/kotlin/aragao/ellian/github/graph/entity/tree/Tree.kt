@@ -25,7 +25,7 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
 
     private fun depthFirstSearch(vertex: Int, visited: BooleanArray, result: MutableList<Int>) {
         visited[vertex] = true
-        result.add(vertex + 1)
+        result.add(vertex)
         vertexesList[vertex].forEachEdgesNodes {
             val neighborVertex = it.vertex
             if (!visited[neighborVertex]) {
@@ -44,7 +44,7 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
 
         while (queue.isNotEmpty()) {
             val currentVertex = queue.removeFirst()
-            result.add(currentVertex + 1)
+            result.add(currentVertex)
             vertexesList[currentVertex].forEachEdgesNodes {
                 val neighborVertex = it.vertex
                 if (!visited[neighborVertex]) {
