@@ -3,14 +3,14 @@ package aragao.ellian.github.graph.entity
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals
 
-class MatrixAdjacentTest : GraphAbstractTest() {
+class AdjacentMatrixTest : GraphAbstractTest() {
     override fun provide(totalVertexes: Int): GraphAbstract {
-        return MatrixAdjacent(totalVertexes)
+        return AdjacentMatrix(totalVertexes)
     }
 
     @Test
     fun `should validate pre process vertex degree values`() {
-        val graphAbstract = MatrixAdjacent(3, true)
+        val graphAbstract = AdjacentMatrix(3, true)
         graphAbstract
             .addEdge(0, 1)
             .addEdge(0, 2)

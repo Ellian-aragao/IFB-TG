@@ -28,10 +28,11 @@ abstract class GraphAbstract(private val totalVertex: Int) {
         return this
     }
 
+    fun getTotalVertex() = totalVertex
     fun getEdgeLenght() = edgeLenght
 
     fun getVertexDegress() = vertexDegree
 
-    abstract fun processVertexDegree(): Array<Int>
-    abstract fun insertEdge(vertex1: Int, vertex2: Int)
+    protected abstract fun processVertexDegree(): Array<Int>
+    protected abstract fun insertEdge(vertex1: Int, vertex2: Int)
 }

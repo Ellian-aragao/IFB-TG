@@ -1,9 +1,8 @@
 package aragao.ellian.github.graph.entity
 
 import java.util.*
-import kotlin.math.roundToInt
 
-class AdjacentList(private val totalVertex: Int) : GraphAbstract(totalVertex) {
+class AdjacentList(totalVertex: Int) : GraphAbstract(totalVertex) {
     private val adjacentList = Array(totalVertex) { LinkedList<Int>() }
 
     override fun insertEdge(vertex1: Int, vertex2: Int) {

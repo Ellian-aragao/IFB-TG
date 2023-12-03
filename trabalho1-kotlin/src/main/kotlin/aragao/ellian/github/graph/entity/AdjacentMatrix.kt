@@ -1,6 +1,6 @@
 package aragao.ellian.github.graph.entity
 
-class MatrixAdjacent(private val totalVertex: Int, private var preCompute: Boolean = false) : GraphAbstract(totalVertex) {
+class AdjacentMatrix(private val totalVertex: Int, private var preCompute: Boolean = false) : GraphAbstract(totalVertex) {
     private val matrixAdjacent = Array(totalVertex) { IntArray(totalVertex) }
 
     override fun insertEdge(vertex1: Int, vertex2: Int) {
