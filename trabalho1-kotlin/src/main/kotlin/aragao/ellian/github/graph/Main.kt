@@ -4,7 +4,7 @@ import aragao.ellian.github.graph.entity.tree.Tree
 import aragao.ellian.github.graph.entrypoint.CliInterpreter
 
 fun main(): Unit {
-    val args = arrayOf("/home/ellian/code/faculdade/IFB-TG/trabalho1/data/input_trabalho1.txt")
+    val args = arrayOf("data/input_trabalho1.txt")
     val cliInterpreter = CliInterpreter(args)
     val fileMatrixData = cliInterpreter.readAllFileData()
     val numberOfVertexes = Integer.parseInt(fileMatrixData[0])
