@@ -6,5 +6,9 @@ class Node(val vertex: Int) {
     fun addEdge(node: Node) = edgesWithNodes.add(node)
 
     fun getVertexDegree() = edgesWithNodes.size
+
+    fun forEachEdgesNodes(action: (Node) -> Unit) {
+        edgesWithNodes.forEach(action)
+    }
 }
 

@@ -15,7 +15,8 @@ fun main(): Unit {
         val vertex2 = Integer.parseInt(vertexes[1]) - 1
         tree.addEdge(vertex1, vertex2)
     }
-    println(tree)
+    println(tree.depthFirstSearch().joinToString(", "))
+    println(tree.breadthFirstSearch().joinToString(", "))
 }
 
 fun writeReport(cliInterpreter: CliInterpreter) {
