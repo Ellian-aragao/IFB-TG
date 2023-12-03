@@ -11,15 +11,13 @@ class AdjacentMatrix(private val totalVertex: Int, private var preCompute: Boole
     }
 
     private fun processBiVertexDegree(vertex1: Int, vertex2: Int) {
-        getVertexDegress()[vertex1] = processVertexDegree(matrixAdjacent[vertex1])
-        getVertexDegress()[vertex2] = processVertexDegree(matrixAdjacent[vertex2])
+        getVertexDegress()[vertex1] = matrixAdjacent[vertex1].reduce(Int::plus)
+        getVertexDegress()[vertex2] = matrixAdjacent[vertex2].reduce(Int::plus)
     }
-
-    private fun processVertexDegree(vertexLine: IntArray): Int = vertexLine.reduce(Int::plus)
 
     override fun processVertexDegree(): Array<Int> {
         return matrixAdjacent
-            .map(this::processVertexDegree)
+            .map { it.reduce(Int::plus) }
             .toTypedArray()
     }
 
