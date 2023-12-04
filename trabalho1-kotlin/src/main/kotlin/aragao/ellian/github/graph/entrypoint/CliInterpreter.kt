@@ -34,7 +34,7 @@ class CliInterpreter(args: Array<String>) {
 
     fun readAllFileData(): List<String> = getInstanceOfFileInput().readLines()
 
-    private fun <T : GraphAbstract> readStreamAndGenerateMatrix(function: Function<Int, T>): T {
+    private fun <T : GraphAbstract> readStreamAndGenerateFromFunction(function: Function<Int, T>): T {
         getInstanceOfFileInput().bufferedReader().use {
             val firstLine = it.readLine()
             val numberOfVertexes = Integer.parseInt(firstLine)
@@ -52,11 +52,11 @@ class CliInterpreter(args: Array<String>) {
     }
 
     fun readStreamAndGenerateAdjacentMatrix(): AdjacentMatrix {
-        return readStreamAndGenerateMatrix { totalVertexes: Int -> AdjacentMatrix(totalVertexes) }
+        return readStreamAndGenerateFromFunction { totalVertexes: Int -> AdjacentMatrix(totalVertexes) }
     }
 
     fun readStreamAndGenerateAdjacentList(): AdjacentList {
-        return readStreamAndGenerateMatrix { totalVertexes: Int -> AdjacentList(totalVertexes) }
+        return readStreamAndGenerateFromFunction { totalVertexes: Int -> AdjacentList(totalVertexes) }
     }
 
     fun writeFileReportFromGraph(graph: GraphAbstract) {
@@ -76,6 +76,6 @@ class CliInterpreter(args: Array<String>) {
     }
 
     fun readStreamAndGenerateTreeSimpleNode(): Tree {
-        return readStreamAndGenerateMatrix { totalVertexes: Int -> Tree(totalVertexes) }
+        return readStreamAndGenerateFromFunction { totalVertexes: Int -> Tree(totalVertexes) }
     }
 }
