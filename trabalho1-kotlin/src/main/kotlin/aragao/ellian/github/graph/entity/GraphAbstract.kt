@@ -4,7 +4,7 @@ abstract class GraphAbstract(private val totalVertex: Int) {
     private var vertexDegree = listOf<Int>()
     private var edgeLenght = 0
 
-    private fun isValidVertex(vertex: Int): Boolean = 0 <= vertex && vertex < this.totalVertex
+    private fun isValidVertex(vertex: Int): Boolean = vertex in 0..<this.totalVertex
 
     private fun validateVertexesToEdge(vertex1: Int, vertex2: Int) {
         val isValidVertex1 = isValidVertex(vertex1)

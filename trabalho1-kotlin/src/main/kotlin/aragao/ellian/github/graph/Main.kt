@@ -1,6 +1,5 @@
 package aragao.ellian.github.graph
 
-import aragao.ellian.github.graph.entity.tree.Tree
 import aragao.ellian.github.graph.entrypoint.CliInterpreter
 
 fun main(): Unit {
