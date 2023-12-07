@@ -7,9 +7,8 @@ abstract class GraphAbstract(private val totalVertex: Int) {
     private fun isValidVertex(vertex: Int): Boolean = vertex in 0..<this.totalVertex
 
     private fun validateVertexesToEdge(vertex1: Int, vertex2: Int) {
-        val isValidVertex1 = isValidVertex(vertex1)
-        val isValidVertex2 = isValidVertex(vertex2)
-        if (!isValidVertex1 or !isValidVertex2) {
+        val vertexesAreValid = isValidVertex(vertex1) and isValidVertex(vertex2)
+        if (!vertexesAreValid) {
             val message =
                 "Bounds of vertex shound be major than 0 and minour than ${this.totalVertex}, the entry value was (${vertex1}, ${vertex2})"
             throw RuntimeException(message)
