@@ -3,6 +3,7 @@ package aragao.ellian.github.graph.entrypoint
 import aragao.ellian.github.graph.entity.AdjacentList
 import aragao.ellian.github.graph.entity.AdjacentMatrix
 import aragao.ellian.github.graph.entity.GraphAbstract
+import aragao.ellian.github.graph.entity.report.GraphReport
 import aragao.ellian.github.graph.entity.tree.Tree
 import java.io.File
 import java.util.function.Function
@@ -59,19 +60,26 @@ class CliInterpreter(args: Array<String>) {
         return readStreamAndGenerateFromFunction { totalVertexes: Int -> AdjacentList(totalVertexes) }
     }
 
-    fun writeFileReportFromGraph(graph: GraphAbstract) {
-        val totalVertex = graph.getTotalVertex()
-        val edgeLenght = graph.getEdgeLenght()
-        val vertexDegress = graph.processVertexDegreesAndGet()
+    fun writeFileReportFromGraph(graphAbstract: GraphAbstract) = writeFileReportFromGraph(GraphReport.of(graphAbstract))
+
+    private fun writeFileReportFromGraph(graphReport: GraphReport) {
         getInstanceOfFileOutput().bufferedWriter().use {
-            it.write("# n = $totalVertex")
+            it.write("# n = ${graphReport.totalVertexes}")
             it.newLine()
-            it.write("# m = $edgeLenght")
+            it.write("# m = ${graphReport.totalEdges}")
             it.newLine()
-            vertexDegress.forEachIndexed { vertex, degree ->
+            graphReport.vertexesDegrees.forEachIndexed { vertex, degree ->
                 it.write("${vertex + 1} $degree")
                 it.newLine()
             }
+            it.write("# greater degree vertex index = ${graphReport.greaterVertexDegree}")
+            it.newLine()
+            it.write("# greater degree vertex = ${graphReport.greaterVertexDegreeValue}")
+            it.newLine()
+            it.write("# lower degree vertex index = ${graphReport.lowerVertexDegree}")
+            it.newLine()
+            it.write("# lower degree vertex = ${graphReport.lowerVertexDegreeValue}")
+            it.newLine()
         }
     }
 
