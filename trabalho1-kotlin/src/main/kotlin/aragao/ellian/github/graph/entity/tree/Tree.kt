@@ -61,21 +61,8 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
         return vertexesList.filter { !visited[it.vertex] }
             .map {
                 val component = mutableListOf<Int>()
-                dfsForConnectedComponents(it.vertex, visited, component)
+                depthFirstSearch(it.vertex, visited, component)
                 component.toList()
             }
     }
-
-    private fun dfsForConnectedComponents(vertex: Int, visited: BooleanArray, component: MutableList<Int>) {
-        visited[vertex] = true
-        component.add(vertex)
-
-        vertexesList[vertex].forEachEdgesNodes {
-            val neighborVertex = it.vertex
-            if (!visited[neighborVertex]) {
-                dfsForConnectedComponents(neighborVertex, visited, component)
-            }
-        }
-    }
-
 }

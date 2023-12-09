@@ -15,6 +15,7 @@ data class GraphReport(val totalVertexes: Int, val totalEdges: Int, val vertexes
     val lowerVertexDegree get() = vertexesDegrees.indexOf(lowerVertexDegreeValue)
 
     val greaterVertexDegreeValue get() = vertexesDegrees.max()
+
     val greaterVertexDegree get() = vertexesDegrees.indexOf(greaterVertexDegreeValue)
 
     companion object {
