@@ -17,21 +17,20 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
     }
 
     override fun depthFirstSearch(startVertex: Int): List<Int> {
-        val visited = BooleanArray(getTotalVertex())
+        val visited = mutableSetOf<Int>()
         val result = mutableListOf<Int>()
-        depthFirstSearch(startVertex, visited, result)
-        return result
-    }
-
-    private fun depthFirstSearch(vertex: Int, visited: BooleanArray, result: MutableList<Int>) {
-        visited[vertex] = true
-        result.add(vertex)
-        vertexesList[vertex].forEachEdgesNodes {
-            val neighborVertex = it.vertex
-            if (!visited[neighborVertex]) {
-                depthFirstSearch(neighborVertex, visited, result)
+        fun depthFirstSearch(vertex: Int) {
+            visited.add(vertex)
+            result.add(vertex)
+            vertexesList[vertex].forEachEdgesNodes {
+                val neighborVertex = it.vertex
+                if (neighborVertex !in visited) {
+                    depthFirstSearch(neighborVertex)
+                }
             }
         }
+        depthFirstSearch(startVertex)
+        return result
     }
 
     override fun breadthFirstSearch(startVertex: Int): List<Int> {
@@ -59,10 +58,7 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
     fun findConnectedComponents(): List<List<Int>> {
         val visited = BooleanArray(getTotalVertex())
         return vertexesList.filter { !visited[it.vertex] }
-            .map {
-                val component = mutableListOf<Int>()
-                depthFirstSearch(it.vertex, visited, component)
-                component.toList()
-            }
+            .map(Node::vertex)
+            .map(this::depthFirstSearch)
     }
 }

@@ -17,7 +17,6 @@ class AdjacentList(totalVertex: Int) : GraphAbstract(totalVertex) {
         fun depthFirstSearch(vertex: Int) {
             visited.add(vertex)
             result.add(vertex)
-
             adjacencyList[vertex].forEach { neighbor ->
                 if (neighbor !in visited) {
                     depthFirstSearch(neighbor)

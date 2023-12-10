@@ -17,20 +17,19 @@ class AdjacentMatrix(private val totalVertex: Int) : GraphAbstract(totalVertex) 
 
     private fun booleanToInt(bool: Boolean): Int = if (bool) 1 else 0
 
-    private fun depthFirstSearch(vertex: Int, visited: BooleanArray, result: MutableList<Int>) {
-        visited[vertex] = true
-        result.add(vertex)
-        adjacencyMatrix[vertex].forEachIndexed { index, item ->
-            if (item and !visited[index]) {
-                depthFirstSearch(index, visited, result)
+    override fun depthFirstSearch(startVertex: Int): List<Int> {
+        val visited = mutableSetOf<Int>()
+        val result = mutableListOf<Int>()
+        fun depthFirstSearch(vertex: Int) {
+            visited.add(vertex)
+            result.add(vertex)
+            adjacencyMatrix[vertex].forEachIndexed { index, item ->
+                if (item and (index !in visited)) {
+                    depthFirstSearch(index)
+                }
             }
         }
-    }
-
-    override fun depthFirstSearch(startVertex: Int): List<Int> {
-        val visited = BooleanArray(getTotalVertex())
-        val result = mutableListOf<Int>()
-        depthFirstSearch(startVertex, visited, result)
+        depthFirstSearch(startVertex)
         return result
     }
 
