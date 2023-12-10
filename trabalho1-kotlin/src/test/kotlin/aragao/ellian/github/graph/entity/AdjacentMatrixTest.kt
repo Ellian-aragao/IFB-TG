@@ -1,10 +1,10 @@
 package aragao.ellian.github.graph.entity
 
-import aragao.ellian.github.graph.entity.representation.adjacency.AdjacentMatrix
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.adjacency.AdjacentMatrix
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
-class AdjacentMatrixTest : GraphAbstractTest() {
-    override fun provide(totalVertexes: Int): GraphAbstract {
+class AdjacentMatrixTest : AbstractGraphTest() {
+    override fun provide(totalVertexes: Int): AbstractGraph {
         return AdjacentMatrix(totalVertexes)
     }
 }

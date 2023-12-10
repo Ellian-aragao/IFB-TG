@@ -1,13 +1,13 @@
-package aragao.ellian.github.graph.entity
+package aragao.ellian.github.graph.domain.entity
 
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
 data class GraphReport(val totalVertexes: Int, val totalEdges: Int, val vertexesDegrees: List<Int>) {
 
-    constructor(graphAbstract: GraphAbstract) : this(
-        graphAbstract.getTotalVertex(),
-        graphAbstract.getEdgeLenght(),
-        graphAbstract.processVertexDegreesAndGet()
+    constructor(abstractGraph: AbstractGraph) : this(
+        abstractGraph.getTotalVertex(),
+        abstractGraph.getEdgeLenght(),
+        abstractGraph.processVertexDegreesAndGet()
     )
 
     val lowerVertexDegreeValue get() = vertexesDegrees.min()
@@ -20,6 +20,6 @@ data class GraphReport(val totalVertexes: Int, val totalEdges: Int, val vertexes
 
     companion object {
         @JvmStatic
-        fun of(graphAbstract: GraphAbstract) = GraphReport(graphAbstract)
+        fun of(abstractGraph: AbstractGraph) = GraphReport(abstractGraph)
     }
 }

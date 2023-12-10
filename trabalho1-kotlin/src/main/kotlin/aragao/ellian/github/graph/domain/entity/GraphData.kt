@@ -1,4 +1,4 @@
-package aragao.ellian.github.graph.entity
+package aragao.ellian.github.graph.domain.entity
 
 data class GraphData(val totalVertexes: Int, val edges: Collection<GraphEdge>) {
     companion object {

@@ -1,8 +1,8 @@
-package aragao.ellian.github.graph.entity.representation
+package aragao.ellian.github.graph.domain.entity.representation
 
-import aragao.ellian.github.graph.entity.GraphEdge
+import aragao.ellian.github.graph.domain.entity.GraphEdge
 
-abstract class GraphAbstract(private val totalVertex: Int) {
+abstract class AbstractGraph(private val totalVertex: Int) {
     private var vertexDegree = listOf<Int>()
     private var edgeLenght = 0
 
@@ -17,18 +17,18 @@ abstract class GraphAbstract(private val totalVertex: Int) {
         }
     }
 
-    fun addEdge(edge: GraphEdge): GraphAbstract {
+    fun addEdge(edge: GraphEdge): AbstractGraph {
         return addEdge(edge.vertex1, edge.vertex2)
     }
 
-    fun addEdge(vertex1: Int, vertex2: Int): GraphAbstract {
+    fun addEdge(vertex1: Int, vertex2: Int): AbstractGraph {
         validateVertexesToEdge(vertex1, vertex2)
         insertEdge(vertex1, vertex2)
         edgeLenght++
         return this
     }
 
-    fun processAllVertexesDegrees(): GraphAbstract {
+    fun processAllVertexesDegrees(): AbstractGraph {
         vertexDegree = processVertexDegree()
         return this
     }
@@ -43,7 +43,7 @@ abstract class GraphAbstract(private val totalVertex: Int) {
 
     fun vertexDegressIsComputed() = vertexDegree.isNotEmpty()
 
-    inline fun vertexDegressIsComputed(action: (GraphAbstract) -> Unit) {
+    inline fun vertexDegressIsComputed(action: (AbstractGraph) -> Unit) {
         action(this)
     }
 

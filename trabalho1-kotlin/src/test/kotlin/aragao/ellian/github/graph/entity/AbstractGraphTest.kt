@@ -1,15 +1,15 @@
 package aragao.ellian.github.graph.entity
 
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
-abstract class GraphAbstractTest {
+abstract class AbstractGraphTest {
 
-    abstract fun provide(totalVertexes: Int): GraphAbstract
+    abstract fun provide(totalVertexes: Int): AbstractGraph
 
     @Test
     fun `should throw error when pass value negative`() {

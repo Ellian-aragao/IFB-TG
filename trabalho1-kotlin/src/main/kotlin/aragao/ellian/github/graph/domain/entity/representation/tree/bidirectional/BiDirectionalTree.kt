@@ -1,8 +1,8 @@
-package aragao.ellian.github.graph.entity.representation.tree.bidirectional
+package aragao.ellian.github.graph.domain.entity.representation.tree.bidirectional
 
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
-class BiDirectionalTree(totalVertexes: Int): GraphAbstract(totalVertexes) {
+class BiDirectionalTree(totalVertexes: Int): AbstractGraph(totalVertexes) {
     private val vertexesList = Array(totalVertexes) { BiDirectionalNode(it) }
 
     override fun insertEdge(vertex1: Int, vertex2: Int) {

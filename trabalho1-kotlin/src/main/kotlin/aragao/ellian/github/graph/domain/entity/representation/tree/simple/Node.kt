@@ -1,4 +1,4 @@
-package aragao.ellian.github.graph.entity.representation.tree.simple
+package aragao.ellian.github.graph.domain.entity.representation.tree.simple
 
 class Node(val vertex: Int) {
     private val edgesWithNodes = HashSet<Node>()

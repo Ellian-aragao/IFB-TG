@@ -1,8 +1,8 @@
-package aragao.ellian.github.graph.entity.representation.adjacency
+package aragao.ellian.github.graph.domain.entity.representation.adjacency
 
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
-class AdjacentMatrix(private val totalVertex: Int) : GraphAbstract(totalVertex) {
+class AdjacentMatrix(private val totalVertex: Int) : AbstractGraph(totalVertex) {
     private val adjacencyMatrix = Array(totalVertex) { BooleanArray(totalVertex) }
 
     override fun insertEdge(vertex1: Int, vertex2: Int) {

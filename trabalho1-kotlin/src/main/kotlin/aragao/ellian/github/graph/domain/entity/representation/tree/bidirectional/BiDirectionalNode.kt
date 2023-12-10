@@ -1,4 +1,4 @@
-package aragao.ellian.github.graph.entity.representation.tree.bidirectional
+package aragao.ellian.github.graph.domain.entity.representation.tree.bidirectional
 
 class BiDirectionalNode(val vertex: Int) {
     private val backBiDirectionalNodes = HashSet<BiDirectionalNode>()

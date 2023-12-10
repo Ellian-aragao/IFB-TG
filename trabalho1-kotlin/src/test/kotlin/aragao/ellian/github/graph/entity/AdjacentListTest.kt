@@ -1,10 +1,10 @@
 package aragao.ellian.github.graph.entity
 
-import aragao.ellian.github.graph.entity.representation.adjacency.AdjacentList
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.adjacency.AdjacentList
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
-class AdjacentListTest : GraphAbstractTest() {
-    override fun provide(totalVertexes: Int): GraphAbstract {
+class AdjacentListTest : AbstractGraphTest() {
+    override fun provide(totalVertexes: Int): AbstractGraph {
         return AdjacentList(totalVertexes)
     }
 }

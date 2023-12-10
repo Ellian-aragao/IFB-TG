@@ -1,11 +1,11 @@
-package aragao.ellian.github.graph.entrypoint
+package aragao.ellian.github.graph.infrastructure.entrypoint
 
-import aragao.ellian.github.graph.entity.GraphData
-import aragao.ellian.github.graph.entity.GraphReport
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
-import aragao.ellian.github.graph.entity.representation.adjacency.AdjacentList
-import aragao.ellian.github.graph.entity.representation.adjacency.AdjacentMatrix
-import aragao.ellian.github.graph.entity.representation.tree.simple.Tree
+import aragao.ellian.github.graph.domain.entity.GraphData
+import aragao.ellian.github.graph.domain.entity.GraphReport
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
+import aragao.ellian.github.graph.domain.entity.representation.adjacency.AdjacentList
+import aragao.ellian.github.graph.domain.entity.representation.adjacency.AdjacentMatrix
+import aragao.ellian.github.graph.domain.entity.representation.tree.simple.Tree
 import java.io.File
 import java.util.*
 import java.util.function.Function
@@ -38,7 +38,7 @@ class CliInterpreter(args: Array<String>) {
 
     fun readAllFileData(): List<String> = getInstanceOfFileInput().readLines()
 
-    private fun <T : GraphAbstract> readStreamAndGenerateFromFunction(function: Function<Int, T>): T {
+    private fun <T : AbstractGraph> readStreamAndGenerateFromFunction(function: Function<Int, T>): T {
         val (totalVertexes, edges) = readStreamAndGenerateGraphData()
         val graph = function.apply(totalVertexes)
         edges.forEach(graph::addEdge)
@@ -76,7 +76,7 @@ class CliInterpreter(args: Array<String>) {
         return readStreamAndGenerateFromFunction { totalVertexes: Int -> AdjacentList(totalVertexes) }
     }
 
-    fun writeFileReportFromGraph(graphAbstract: GraphAbstract) = writeFileReportFromGraph(GraphReport.of(graphAbstract))
+    fun writeFileReportFromGraph(abstractGraph: AbstractGraph) = writeFileReportFromGraph(GraphReport.of(abstractGraph))
 
     fun writeFileReportFromGraph(graphReport: GraphReport) {
         getInstanceOfFileOutput().bufferedWriter().use {

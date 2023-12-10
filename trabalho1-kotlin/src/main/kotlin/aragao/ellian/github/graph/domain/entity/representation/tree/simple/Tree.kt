@@ -1,8 +1,8 @@
-package aragao.ellian.github.graph.entity.representation.tree.simple
+package aragao.ellian.github.graph.domain.entity.representation.tree.simple
 
-import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
-class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
+class Tree(totalVertexes: Int) : AbstractGraph(totalVertexes) {
     private val vertexesList = Array(totalVertexes) { Node(it) }
 
     override fun insertEdge(vertex1: Int, vertex2: Int) {

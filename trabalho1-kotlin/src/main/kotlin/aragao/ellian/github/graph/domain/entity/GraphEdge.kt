@@ -1,4 +1,4 @@
-package aragao.ellian.github.graph.entity
+package aragao.ellian.github.graph.domain.entity
 
 data class GraphEdge(val vertex1: Int, val vertex2: Int) {
     init {
