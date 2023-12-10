@@ -1,4 +1,6 @@
-package aragao.ellian.github.graph.entity
+package aragao.ellian.github.graph.entity.representation.adjacency
+
+import aragao.ellian.github.graph.entity.representation.GraphAbstract
 
 class AdjacentMatrix(private val totalVertex: Int) : GraphAbstract(totalVertex) {
     private val adjacencyMatrix = Array(totalVertex) { BooleanArray(totalVertex) }

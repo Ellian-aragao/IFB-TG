@@ -1,6 +1,6 @@
-package aragao.ellian.github.graph.entity.tree
+package aragao.ellian.github.graph.entity.representation.tree.bidirectional
 
-import aragao.ellian.github.graph.entity.GraphAbstract
+import aragao.ellian.github.graph.entity.representation.GraphAbstract
 
 class BiDirectionalTree(totalVertexes: Int): GraphAbstract(totalVertexes) {
     private val vertexesList = Array(totalVertexes) { BiDirectionalNode(it) }

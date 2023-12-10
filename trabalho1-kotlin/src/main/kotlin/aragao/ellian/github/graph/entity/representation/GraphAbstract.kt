@@ -1,4 +1,6 @@
-package aragao.ellian.github.graph.entity
+package aragao.ellian.github.graph.entity.representation
+
+import aragao.ellian.github.graph.entity.GraphEdge
 
 abstract class GraphAbstract(private val totalVertex: Int) {
     private var vertexDegree = listOf<Int>()
@@ -13,6 +15,10 @@ abstract class GraphAbstract(private val totalVertex: Int) {
                 "Bounds of vertex shound be major than 0 and minour than ${this.totalVertex}, the entry value was (${vertex1}, ${vertex2})"
             throw RuntimeException(message)
         }
+    }
+
+    fun addEdge(edge: GraphEdge): GraphAbstract {
+        return addEdge(edge.vertex1, edge.vertex2)
     }
 
     fun addEdge(vertex1: Int, vertex2: Int): GraphAbstract {

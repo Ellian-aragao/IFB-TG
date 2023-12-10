@@ -1,5 +1,6 @@
 package aragao.ellian.github.graph.entity
 
+import aragao.ellian.github.graph.entity.representation.GraphAbstract
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals

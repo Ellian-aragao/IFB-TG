@@ -1,14 +1,17 @@
 package aragao.ellian.github.graph.entrypoint
 
-import aragao.ellian.github.graph.entity.AdjacentList
-import aragao.ellian.github.graph.entity.AdjacentMatrix
-import aragao.ellian.github.graph.entity.GraphAbstract
-import aragao.ellian.github.graph.entity.report.GraphReport
-import aragao.ellian.github.graph.entity.tree.Tree
+import aragao.ellian.github.graph.entity.GraphData
+import aragao.ellian.github.graph.entity.GraphReport
+import aragao.ellian.github.graph.entity.representation.GraphAbstract
+import aragao.ellian.github.graph.entity.representation.adjacency.AdjacentList
+import aragao.ellian.github.graph.entity.representation.adjacency.AdjacentMatrix
+import aragao.ellian.github.graph.entity.representation.tree.simple.Tree
 import java.io.File
+import java.util.*
 import java.util.function.Function
 
 class CliInterpreter(args: Array<String>) {
+    private var graphData: GraphData? = null
     private val fileInputPath: String
     private var fileInput: File? = null
     private var fileOutput: File? = null
@@ -36,20 +39,33 @@ class CliInterpreter(args: Array<String>) {
     fun readAllFileData(): List<String> = getInstanceOfFileInput().readLines()
 
     private fun <T : GraphAbstract> readStreamAndGenerateFromFunction(function: Function<Int, T>): T {
-        getInstanceOfFileInput().bufferedReader().use {
-            val firstLine = it.readLine()
-            val numberOfVertexes = Integer.parseInt(firstLine)
-            val graphAbstract = function.apply(numberOfVertexes)
-            var readedLine = it.readLine()
-            do {
-                val vertexList = readedLine.split(" ")
-                val vertex1 = Integer.parseInt(vertexList[0]) - 1
-                val vertex2 = Integer.parseInt(vertexList[1]) - 1
-                graphAbstract.addEdge(vertex1, vertex2)
-                readedLine = it.readLine()
-            } while (readedLine != null)
-            return graphAbstract
+        val (totalVertexes, edges) = readStreamAndGenerateGraphData()
+        val graph = function.apply(totalVertexes)
+        edges.forEach(graph::addEdge)
+        return graph
+    }
+
+    @Synchronized
+    fun readStreamAndGenerateGraphData(): GraphData {
+        if (Objects.isNull(this.graphData)) {
+            getInstanceOfFileInput().bufferedReader().use {
+                val firstLine = it.readLine()
+                val numberOfVertexes = Integer.parseInt(firstLine)
+                val graphDataBuilder = GraphData.builder()
+                    .totalVertexes(numberOfVertexes)
+                var readedLine = it.readLine()
+                do {
+                    val vertexList = readedLine.split(" ")
+                    val vertex1 = Integer.parseInt(vertexList[0]) - 1
+                    val vertex2 = Integer.parseInt(vertexList[1]) - 1
+                    graphDataBuilder.addEdge(vertex1, vertex2)
+                    readedLine = it.readLine()
+                } while (readedLine != null)
+                this.graphData = graphDataBuilder.build()
+            }
         }
+
+        return graphData!!
     }
 
     fun readStreamAndGenerateAdjacentMatrix(): AdjacentMatrix {
@@ -62,7 +78,7 @@ class CliInterpreter(args: Array<String>) {
 
     fun writeFileReportFromGraph(graphAbstract: GraphAbstract) = writeFileReportFromGraph(GraphReport.of(graphAbstract))
 
-    private fun writeFileReportFromGraph(graphReport: GraphReport) {
+    fun writeFileReportFromGraph(graphReport: GraphReport) {
         getInstanceOfFileOutput().bufferedWriter().use {
             it.write("# n = ${graphReport.totalVertexes}")
             it.newLine()

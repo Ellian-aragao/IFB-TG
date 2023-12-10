@@ -1,6 +1,6 @@
-package aragao.ellian.github.graph.entity.report
+package aragao.ellian.github.graph.entity
 
-import aragao.ellian.github.graph.entity.GraphAbstract
+import aragao.ellian.github.graph.entity.representation.GraphAbstract
 
 data class GraphReport(val totalVertexes: Int, val totalEdges: Int, val vertexesDegrees: List<Int>) {
 
