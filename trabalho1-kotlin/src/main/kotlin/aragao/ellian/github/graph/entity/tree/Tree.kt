@@ -16,10 +16,10 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
             .toList()
     }
 
-    fun depthFirstSearch(startingVertex: Int = 0): List<Int> {
+    override fun depthFirstSearch(startVertex: Int): List<Int> {
         val visited = BooleanArray(getTotalVertex())
         val result = mutableListOf<Int>()
-        depthFirstSearch(startingVertex, visited, result)
+        depthFirstSearch(startVertex, visited, result)
         return result
     }
 
@@ -34,13 +34,13 @@ class Tree(totalVertexes: Int) : GraphAbstract(totalVertexes) {
         }
     }
 
-    fun breadthFirstSearch(startingVertex: Int = 0): List<Int> {
+    override fun breadthFirstSearch(startVertex: Int): List<Int> {
         val visited = BooleanArray(getTotalVertex())
         val result = mutableListOf<Int>()
         val queue = ArrayDeque<Int>()
 
-        visited[startingVertex] = true
-        queue.add(startingVertex)
+        visited[startVertex] = true
+        queue.add(startVertex)
 
         while (queue.isNotEmpty()) {
             val currentVertex = queue.removeFirst()

@@ -5,11 +5,11 @@ import aragao.ellian.github.graph.entrypoint.CliInterpreter
 fun main() {
     val args = arrayOf("data/input_trabalho1.txt")
     val cliInterpreter = CliInterpreter(args)
-    val tree = cliInterpreter.readStreamAndGenerateTreeSimpleNode()
-    val searchList = tree.breadthFirstSearch()
+    val tree = cliInterpreter.readStreamAndGenerateAdjacentList()
+    val searchList = tree.depthFirstSearch()
     println(searchList)
     val adjacentMatrix = cliInterpreter.readStreamAndGenerateAdjacentMatrix()
-    val searchList2 = adjacentMatrix.breadthFirstSearch()
+    val searchList2 = adjacentMatrix.depthFirstSearch()
     println(searchList2)
     println(adjacentMatrix)
 }

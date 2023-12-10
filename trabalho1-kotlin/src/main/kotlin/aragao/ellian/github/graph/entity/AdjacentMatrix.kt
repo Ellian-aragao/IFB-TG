@@ -27,14 +27,14 @@ class AdjacentMatrix(private val totalVertex: Int) : GraphAbstract(totalVertex) 
         }
     }
 
-    fun depthFirstSearch(startingVertex: Int = 0): List<Int> {
+    override fun depthFirstSearch(startVertex: Int): List<Int> {
         val visited = BooleanArray(getTotalVertex())
         val result = mutableListOf<Int>()
-        depthFirstSearch(startingVertex, visited, result)
+        depthFirstSearch(startVertex, visited, result)
         return result
     }
 
-    fun breadthFirstSearch(startVertex: Int = 0): List<Int> {
+    override fun breadthFirstSearch(startVertex: Int): List<Int> {
         val totalVertex = getTotalVertex()
         val visited = BooleanArray(totalVertex)
         val result = mutableListOf<Int>()
@@ -44,7 +44,7 @@ class AdjacentMatrix(private val totalVertex: Int) : GraphAbstract(totalVertex) 
         queue.add(startVertex)
 
         while (queue.isNotEmpty()) {
-            val currentVertex = queue.removeAt(0)
+            val currentVertex = queue.removeFirst()
             result.add(currentVertex)
 
             for (adjVertex in 0..<totalVertex) {

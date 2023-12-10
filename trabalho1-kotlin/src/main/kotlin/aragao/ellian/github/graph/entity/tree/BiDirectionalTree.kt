@@ -10,6 +10,14 @@ class BiDirectionalTree(totalVertexes: Int): GraphAbstract(totalVertexes) {
         vertexesList[vertex2].addBackNode(vertexesList[vertex1])
     }
 
+    override fun breadthFirstSearch(startVertex: Int): List<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override fun depthFirstSearch(startVertex: Int): List<Int> {
+        TODO("Not yet implemented")
+    }
+
     override fun processVertexDegree(): List<Int> {
         return vertexesList
             .map { it.getVertexDegree() }

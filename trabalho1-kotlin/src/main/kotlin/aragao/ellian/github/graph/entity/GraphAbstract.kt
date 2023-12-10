@@ -45,4 +45,6 @@ abstract class GraphAbstract(private val totalVertex: Int) {
 
     protected abstract fun processVertexDegree(): List<Int>
     protected abstract fun insertEdge(vertex1: Int, vertex2: Int)
+    abstract fun breadthFirstSearch(startVertex: Int = 0): List<Int>
+    abstract fun depthFirstSearch(startVertex: Int = 0): List<Int>
 }
