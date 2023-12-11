@@ -2,8 +2,7 @@ package aragao.ellian.github.graph.domain.entity
 
 import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 
-data class GraphReport(val totalVertexes: Int, val totalEdges: Int, val vertexesDegrees: List<Int>) {
-
+open class GraphSimpleReport(val totalVertexes: Int, val totalEdges: Int, val vertexesDegrees: List<Int>) {
     constructor(abstractGraph: AbstractGraph) : this(
         abstractGraph.getTotalVertex(),
         abstractGraph.getEdgeLenght(),
@@ -20,6 +19,6 @@ data class GraphReport(val totalVertexes: Int, val totalEdges: Int, val vertexes
 
     companion object {
         @JvmStatic
-        fun of(abstractGraph: AbstractGraph) = GraphReport(abstractGraph)
+        fun of(abstractGraph: AbstractGraph) = GraphSimpleReport(abstractGraph)
     }
 }

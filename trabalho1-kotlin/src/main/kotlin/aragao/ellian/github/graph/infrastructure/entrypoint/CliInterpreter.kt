@@ -1,11 +1,13 @@
 package aragao.ellian.github.graph.infrastructure.entrypoint
 
 import aragao.ellian.github.graph.domain.entity.GraphData
-import aragao.ellian.github.graph.domain.entity.GraphReport
+import aragao.ellian.github.graph.domain.entity.GraphSimpleReport
+import aragao.ellian.github.graph.domain.entity.GraphTimeReport
 import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 import aragao.ellian.github.graph.domain.entity.representation.adjacency.AdjacentList
 import aragao.ellian.github.graph.domain.entity.representation.adjacency.AdjacentMatrix
 import aragao.ellian.github.graph.domain.entity.representation.tree.simple.Tree
+import java.io.BufferedWriter
 import java.io.File
 import java.util.*
 import java.util.function.Function
@@ -76,27 +78,47 @@ class CliInterpreter(args: Array<String>) {
         return readStreamAndGenerateFromFunction { totalVertexes: Int -> AdjacentList(totalVertexes) }
     }
 
-    fun writeFileReportFromGraph(abstractGraph: AbstractGraph) = writeFileReportFromGraph(GraphReport.of(abstractGraph))
+    fun writeFileReportFromGraph(graphData: GraphData) {
+        getInstanceOfFileOutput().bufferedWriter().use { bufferedWriter ->
+            val adjacentList = AdjacentList(graphData)
+            val adjacentMatrix = AdjacentMatrix(graphData)
 
-    fun writeFileReportFromGraph(graphReport: GraphReport) {
-        getInstanceOfFileOutput().bufferedWriter().use {
-            it.write("# n = ${graphReport.totalVertexes}")
-            it.newLine()
-            it.write("# m = ${graphReport.totalEdges}")
-            it.newLine()
-            graphReport.vertexesDegrees.forEachIndexed { vertex, degree ->
-                it.write("${vertex + 1} $degree")
-                it.newLine()
-            }
-            it.write("# greater degree vertex index = ${graphReport.greaterVertexDegree}")
-            it.newLine()
-            it.write("# greater degree vertex = ${graphReport.greaterVertexDegreeValue}")
-            it.newLine()
-            it.write("# lower degree vertex index = ${graphReport.lowerVertexDegree}")
-            it.newLine()
-            it.write("# lower degree vertex = ${graphReport.lowerVertexDegreeValue}")
-            it.newLine()
+            val timeReports = listOf(adjacentList, adjacentMatrix)
+                .map(GraphTimeReport::of)
+
+            writeSimpleReport(bufferedWriter, timeReports.first())
+
+            timeReports
+                .map { graphReport ->
+                    val (bfsIndex, graphBfsSearchTime) = graphReport.indexAndExecutionTimeBreadFirstSearchGraphWorstCase()
+                    bufferedWriter.write("${graphReport.clazz} vertex ${bfsIndex + 1} execution BFS worst case: $graphBfsSearchTime${System.lineSeparator()}")
+                    val (dfsIndex, graphDfsSearchTime) = graphReport.indexAndExecutionTimeDepthFirstSearchGraphWorstCase()
+                    bufferedWriter.write("${graphReport.clazz} vertex ${dfsIndex + 1} execution DFS worst case: $graphDfsSearchTime${System.lineSeparator()}")
+                }
+
         }
+    }
+
+    private fun writeSimpleReport(
+        bufferedWriter: BufferedWriter,
+        graphSimpleReport: GraphSimpleReport
+    ) {
+        bufferedWriter.write("# n = ${graphSimpleReport.totalVertexes}")
+        bufferedWriter.newLine()
+        bufferedWriter.write("# m = ${graphSimpleReport.totalEdges}")
+        bufferedWriter.newLine()
+        graphSimpleReport.vertexesDegrees.forEachIndexed { vertex, degree ->
+            bufferedWriter.write("${vertex + 1} $degree")
+            bufferedWriter.newLine()
+        }
+        bufferedWriter.write("# greater degree vertex index = ${graphSimpleReport.greaterVertexDegree}")
+        bufferedWriter.newLine()
+        bufferedWriter.write("# greater degree vertex = ${graphSimpleReport.greaterVertexDegreeValue}")
+        bufferedWriter.newLine()
+        bufferedWriter.write("# lower degree vertex index = ${graphSimpleReport.lowerVertexDegree}")
+        bufferedWriter.newLine()
+        bufferedWriter.write("# lower degree vertex = ${graphSimpleReport.lowerVertexDegreeValue}")
+        bufferedWriter.newLine()
     }
 
     fun readStreamAndGenerateTreeSimpleNode(): Tree {

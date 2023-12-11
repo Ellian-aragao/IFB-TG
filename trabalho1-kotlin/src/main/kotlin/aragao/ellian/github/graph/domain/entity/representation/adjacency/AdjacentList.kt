@@ -1,9 +1,15 @@
 package aragao.ellian.github.graph.domain.entity.representation.adjacency
 
+import aragao.ellian.github.graph.domain.entity.GraphData
 import aragao.ellian.github.graph.domain.entity.representation.AbstractGraph
 import java.util.*
 
 class AdjacentList(totalVertex: Int) : AbstractGraph(totalVertex) {
+
+    constructor(graphData: GraphData) : this(graphData.totalVertexes) {
+        graphData.edges.forEach(this::addEdge)
+    }
+
     private val adjacencyList = Array(totalVertex) { LinkedList<Int>() }
 
     override fun insertEdge(vertex1: Int, vertex2: Int) {

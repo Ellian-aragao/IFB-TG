@@ -1,10 +1,15 @@
 package aragao.ellian.github.graph.domain.entity.representation
 
+import aragao.ellian.github.graph.domain.entity.GraphData
 import aragao.ellian.github.graph.domain.entity.GraphEdge
 
 abstract class AbstractGraph(private val totalVertex: Int) {
     private var vertexDegree = listOf<Int>()
     private var edgeLenght = 0
+
+    constructor(graphData: GraphData) : this(graphData.totalVertexes) {
+        graphData.edges.forEach(this::addEdge)
+    }
 
     private fun isValidVertex(vertex: Int): Boolean = vertex in 0..<this.totalVertex
 
