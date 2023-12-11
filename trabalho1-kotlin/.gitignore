@@ -40,3 +40,4 @@ bin/
 .DS_Store
 
 target
+data/input_trabalho1.txt-out.txt
